@@ -10,14 +10,13 @@ export class LandingDetails extends Component {
     this.loadLanding();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.loadLanding();
     }
   }
 
   async loadLanding() {
-    console.log(this.props.match.params.id);
     const landing = await landingService.getById(this.props.match.params.id);
     this.setState({ landing });
   }
@@ -44,12 +43,16 @@ export class LandingDetails extends Component {
         ))}
 
         {landing.failures.length === 0 && <h2>The launch was successful</h2>}
+        <iframe
+          src={'https://www.youtube.com/embed/' + landing.links.youtube_id}
+        ></iframe>
         <h4>
           <a href={landing.links.wikipedia}>
             Learn more:{' '}
             <span className='wiki-link'>{landing.links.wikipedia}</span>
           </a>
         </h4>
+
         <button onClick={this.onGoBack}>Back</button>
       </div>
     );

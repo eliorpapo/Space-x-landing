@@ -4,17 +4,27 @@ import axios from 'axios';
 export const landingService = {
   query,
   getById,
+  pageDecrease,
+  pageIncrease,
 };
 
-function query(filterBy) {
+var gPage = 0;
+
+async function query(filterBy) {
+  await loadgLandings();
   let landingsToReturn = gLandings;
   if (filterBy) {
-    var { name } = filterBy;
+    var { name, success } = filterBy;
     landingsToReturn = gLandings.filter((landing) =>
       landing.name.toLowerCase().includes(name.toLowerCase())
     );
+    if (success !== '')
+      landingsToReturn = gLandings.filter(
+        (landing) => landing.success === success
+      );
   }
-  return Promise.resolve([...landingsToReturn]);
+  const twenty = landingsToReturn.slice(gPage, gPage + 20);
+  return Promise.resolve([...twenty]);
 }
 
 function getById(id) {
@@ -30,12 +40,21 @@ function _loadLandings() {
 }
 
 var gLandings = [];
-loadgLandings();
 async function loadgLandings() {
   const { data } = await axios.get(`https://api.spacexdata.com/v4/launches`);
-  const firstTwenty = data.slice(0, 20);
-  gLandings = firstTwenty;
+  // const twenty = data.slice(gPage, gPage + 20);
+  gLandings = data;
   _loadLandings();
+}
+
+function pageIncrease() {
+  if (gPage === 140) return;
+  gPage += 20;
+}
+
+function pageDecrease() {
+  if (gPage === 0) return;
+  gPage -= 20;
 }
 
 // const gLandings = [
