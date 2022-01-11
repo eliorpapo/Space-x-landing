@@ -42,7 +42,6 @@ function _loadLandings() {
 var gLandings = [];
 async function loadgLandings() {
   const { data } = await axios.get(`https://api.spacexdata.com/v4/launches`);
-  // const twenty = data.slice(gPage, gPage + 20);
   gLandings = data;
   _loadLandings();
 }
