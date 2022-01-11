@@ -5,6 +5,24 @@
   :last-child {
     margin-top: 20px;
   }
+  & .landing-summery,
+  .landing-title,
+  .landing-status {
+    margin-bottom: 20px;
+  }
+
+  & .landing-status-fail {
+    margin-bottom: 10px;
+  }
+
+  & .landing-img,
+  .landing-video {
+    margin-bottom: 40px;
+  }
+
+  & .landing-video {
+    margin-top: 40px;
+  }
 
   & .wiki-link {
     color: blue;

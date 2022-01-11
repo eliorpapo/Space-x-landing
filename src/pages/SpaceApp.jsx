@@ -7,6 +7,7 @@ export class SpaceApp extends Component {
   state = {
     landings: null,
     filterBy: null,
+    currPage: 1,
   };
 
   async componentDidMount() {
@@ -24,23 +25,30 @@ export class SpaceApp extends Component {
   };
 
   nextPage = () => {
-    landingService.pageIncrease();
+    const currPage = landingService.pageIncrease();
+    this.setState({ currPage });
     this.loadLandings();
   };
 
   prevPage = () => {
-    landingService.pageDecrease();
+    const currPage = landingService.pageDecrease();
+    this.setState({ currPage });
     this.loadLandings();
   };
 
   render() {
-    const { landings } = this.state;
+    const { landings, currPage } = this.state;
     if (!landings) return <div>Loading...</div>;
     return (
       <div className='landing-app'>
         <LandingFilter onChangeFilter={this.onChangeFilter} />
-        <button onClick={this.prevPage}>Prev page</button>
-        <button onClick={this.nextPage}>Next page</button>
+        <button className='prev page-btn' onClick={this.prevPage}>
+          <span>&#8249;</span>
+        </button>
+        <h2 className='curr-page'>{currPage}</h2>
+        <button className='next page-btn' onClick={this.nextPage}>
+          <span>&#8250;</span>
+        </button>
         <LandingList landings={landings} />
       </div>
     );

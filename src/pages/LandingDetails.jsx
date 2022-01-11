@@ -30,20 +30,23 @@ export class LandingDetails extends Component {
     if (!landing) return <div>Loading..</div>;
     return (
       <div className='landing-details'>
-        <h1>{landing.name}</h1>
+        <h1 className='landing-title'>{landing.name}</h1>
         <img className='landing-img' src={landing.links.patch.small} />
-        <h3>Summery: {landing.details}</h3>
+        <h3 className='landing-summery'>
+          <span className='underline'>Summery:</span> {landing.details}
+        </h3>
         {landing.failures.length > 0 && (
-          <span>
-            <h2>Failures:</h2>
-          </span>
+          <h2 className='landing-status-fail'>Failures:</h2>
         )}
         {landing.failures.map((failure, index) => (
           <h3 key={index + 'f'}> {failure.reason}</h3>
         ))}
 
-        {landing.failures.length === 0 && <h2>The launch was successful</h2>}
+        {landing.failures.length === 0 && (
+          <h2 className='landing-status'>The launch was successful</h2>
+        )}
         <iframe
+          className='landing-video'
           src={'https://www.youtube.com/embed/' + landing.links.youtube_id}
         ></iframe>
         <h4>

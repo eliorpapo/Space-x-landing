@@ -1,2 +1,26 @@
 .landing-app {
+  & .page-btn {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0px 17px;
+    font-size: rem(32px);
+    border-radius: 50%;
+    background-color: #f1f1f1;
+    color: black;
+    border: none;
+    margin-inline-end: 8px;
+    margin-bottom: 10px;
+    position: relative;
+
+    & span {
+      transform: translateY(-12.5%);
+      display: table-cell;
+    }
+  }
+
+  & .curr-page {
+    display: inline-block;
+    transform: translateY(-41.5%);
+    margin-inline-end: 8px;
+  }
 }
